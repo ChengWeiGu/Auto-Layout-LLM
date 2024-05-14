@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBProWhisper</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icon/web_icon.png')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <div class="header-container">
+        <div> 
+            <h1 id = "header">Layout Whisper : Auto Layout LLM</h1>
+        </div>
+    </div>
+
+    <div class="outermost-layout">
+        <div id = "descr_container">
+            <label type="label" id='label1' class="descr-label">Describe a layout.</label>
+            <label type="label" id='label2' class="descr-label">
+                Just describe any layout you want, and it'll try to render below!<br><br>
+                ex1: 我想要一個3X3的table，中間放置3X3的numerics。 table右方放置一個file browser 大小與table同大<br>
+                ex2: 一個大小適中的XY plot與一個Alarm，Alarm在XY plot的左邊，頁面右上方放置5個Function Keys並橫向排列<br>
+                ex3: 一個可以展示XY圖的頁面和兩個大小適中texts分別代表X座標軸(左邊)和Y座標軸(下方)
+            </label>
+        </div>
+
+        <div id = "submit_container">
+            <input type="text" id="input_box">
+            <button id="submit" onclick="gen_layout()">Generate</button>
+            <button id="fix" onclick="fix_layout()">Optimize</button>
+        </div>
+
+        <div id="loading-spinner"></div>
+
+        <div id = "image_container">
+            <textarea id="json_code_textArea" readonly></textarea>
+            <img id="ResultImage" src="" alt="Your Icon" class="Result-Image">
+        </div>
+    <div>
+
+    <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/saveload.js') }}"></script>
+
+</body>
+</html>
