@@ -36,30 +36,35 @@ function gen_layout() {
 
 // call api
 function fix_layout() {
-    disableBtn();
-    let input_text = input_box.value;
-    fetch('/fix_layout', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-                            query: input_text ,
-                            history_messages : history_messages
-                        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status == "success") {
-            //output json string
-            json_code_textArea.value = data.gen_str;
-            // put image
-            result_image.src = 'data:image/png;base64,' + data.img_base64;
-            // append to historical messages
-            history_messages.push([data.prompt_str, data.gen_str]);
-        }
-        enableBtn();
-    });
+    if (history_messages.length > 0) {
+        disableBtn();
+        let input_text = input_box.value;
+        fetch('/fix_layout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                                query: input_text ,
+                                history_messages : history_messages
+                            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status == "success") {
+                //output json string
+                json_code_textArea.value = data.gen_str;
+                // put image
+                result_image.src = 'data:image/png;base64,' + data.img_base64;
+                // append to historical messages
+                history_messages.push([data.prompt_str, data.gen_str]);
+            }
+            enableBtn();
+        });
+    } else {
+        alert("Please generate a layout at first");
+    }
+    
 }
 
 
